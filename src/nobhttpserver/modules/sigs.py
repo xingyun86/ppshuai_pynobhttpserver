@@ -8,9 +8,9 @@ import signal
 from utils import CUtils
 
 '''
-Define CTRL+C exit signal handler
+Define CTRL+C terminate signal handler
 '''
-def signal_exit_action(signum, params):
+def signal_terminate_action(signum, params):
     CUtils.python_printf("===============[[[User press ctrl+c close program]]]===============")
     sys.exit(0)
     
@@ -19,7 +19,7 @@ class CSigs:
         pass
     # 注册CTRL+C的信号处理
     @staticmethod
-    def reg_sig(action=signal_exit_action):
+    def reg_sig(action=signal_terminate_action):
         # 注册CTRL+C的信号处理
         signal.signal(signal.SIGINT, action)
         signal.signal(signal.SIGTERM, action)
