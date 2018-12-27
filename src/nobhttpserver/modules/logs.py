@@ -13,14 +13,15 @@ class CLogs:
     fhandler = None
     shandler = None
 
-    def __init__(self, name, file_name, max_bytes=10*1024*1024, backup_count=10):
+    def __init__(self, name, filename, maxbytes=10*1024*1024, backupcount=10):
         # logging初始化工作
         logging.basicConfig()
-        # 写入文件，如果文件超过max_bytes个Bytes，仅保留backup_count个文件。
+
+        # 写入文件，如果文件超过max_bytes个Bytes，仅保留backup_count个文件
         self.fhandler = logging.handlers.RotatingFileHandler(
-            file_name, maxBytes=max_bytes, backupCount=backup_count)
+            filename, maxBytes=maxbytes, backupCount=backupcount)
         self.fhandler.setLevel(logging.INFO)
-        # self.fhandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(filename)s[:%(lineno)d] - %(message)s"))
+        # self.fhandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(_filename)s[:%(lineno)d] - %(message)s"))
         self.fhandler.setFormatter(logging.Formatter(
             fmt="[%(asctime)s.%(msecs)03d],%(message)s", datefmt='%Y-%m-%d %H:%M:%S'))
 
@@ -30,7 +31,7 @@ class CLogs:
         self.shandler.setFormatter(logging.Formatter(
             fmt="[%(asctime)s.%(msecs)03d] - %(levelname)s - %(message)s", datefmt='%Y-%m-%d %H:%M:%S'))
 
-        # myapp的初始化工作
+        # logger的初始化工作
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(self.shandler)
